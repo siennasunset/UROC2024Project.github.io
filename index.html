@@ -3,9 +3,71 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hello World</title>
+  <title>Mini-Survey Snippets</title>
 </head>
 <body>
-  <h1>Hello, World!</h1>
+  <h1>Abstract</h1>
+  <p>Artificial intelligence (AI) is revolutionizing the way data is processed, allowing people to work more efficiently through improved data visualization and interpretation. One technology that builds upon data processing is digital twinning (DT), where replicas of real-world objects are modeled, constantly updated, and interactable through computers. The goal is to use the digital counterpart to improve the physical twin in a feedback loop, then introduce new data from the physical twin back into the digital twin as the former changes. Though interest in DT has been explosive in recent years, the integration of AI techniques into DT has yet to be thoroughly explored despite the natural synergies between the two technologies. This survey attempts to discuss and evaluate two primary approaches to integrating machine learning into digital twin ecosystems: i) building machine learning applications on top of digital twins and ii) using machine learning models as digital twins themselves. We present case studies from numerous domains, discovering that most integrations currently fall under the first approach, before identifying limitations in these existing approaches and areas for future development. Methods used in machine learning are also briefly mentioned.
+  </p>
+  
+  <h1>Introduction</h1>
+  <p>
+    The confluence of artificial intelligence (AI) and digital twinning (DT) is ushering in a new era of intelligent systems that mirror and work alongside the physical world. With the burgeoning interest and development in machine learning, especially deep learning, the way we process data has been revolutionized, enabling us to work more efficiently through improved data visualization, interpretation, and decision-making. Digital twinning takes this a step further by creating virtual replicas of real-world objects, constantly updating them, and making them interactive through computers. The goal is to use these digital counterparts to improve their physical twins in a closed feedback loop, where insights from the digital model are applied back to the physical system, leading to continuous improvement and optimization.
+
+While digital twin development has seen explosive growth in recent years, the integration of AI techniques remains an area ripe for exploration, despite agreement that AI is a key enabling technology for digital twins ~\cite{fuller_digital_2020, minerva_dt_2020}. The natural synergies between these two domains hold immense potential for transforming digital twin ecosystems, enabling us to build more dynamic, data-driven, and intelligent systems.
+
+This paper identifies two primary approaches to integrating machine learning in the digital twins space:
+
+\begin{itemize}
+    \item \textbf{Building machine learning applications on top of existing digital twins:} This approach utilizes AI to enhance specific aspects of a pre-existing digital twin, often focusing on data synthesis, processing, or decision-making support.
+    
+    \item \textbf{Using machine learning models as digital twins themselves:} This involves employing machine learning models as the core representation of the physical system, potentially eliminating the need for traditional, computationally expensive models and providing a more accessible option.
+\end{itemize}
+
+ We provide an overview of key machine learning techniques, including classical algorithms, neural networks, physics-informed neural networks (PINNs), surrogate models, transfer learning, attention mechanisms, transformers, and foundation models. We then present case studies from various domains, exploring the current landscape of machine learning integration in digital twins, highlighting the limitations of existing approaches, and outlining promising areas for future development. Finally, we propose a framework for a generalizable, machine learning-based data-driven digital twin, followed by an evaluation of existing digital twin solutions from a [] perspective. % performance? whatever we end up doing with evaluation
+  </p>
+
+  <h1>Digital Twins</h1>
+  <p>
+    Twinning was first introduced in the NASA Apollo program in the 1960s; after Apollo 13’s oxygen tank exploded and caused additional damage to the main engine, 15 simulators were set up to evaluate the extent of the damage and create a “twin” in virtual space. The “twin” enabled them to model the events leading up to the explosion and determine how to proceed~\cite{allen_digital_2021}. The term “digital twin” itself would not emerge until 2002 when it was coined by Dr. Michael Grieves in the context of product lifecycle management (PLM). PLM is concerned with the data and processes used in tracking and handling a product as it progresses through the stages of its life, from development to decline ~\cite{segal_product_2023}. Grieves ~\cite{grieves_dt_2014} defines the digital twin as a virtual representation of a physical product. The digital counterpart allows for comparison between the designed specifications and the actual produced product, thereby creating a feedback loop that helps improve the manufacturing process. The digital twin comprises three main components: physical products in real space, virtual products in virtual space, and the connections between them, which consist of data and information that link the physical and virtual products, facilitating real-time monitoring and comparison.
+
+Digital twins have been extrapolated to numerous domains since, beyond their original intended use in manufacturing ~\cite{fuller_digital_2020}; such domains include smart city development ~\cite{lv_solving_2021}, agriculture  ~\cite{allen_digital_2021, purcell_agriculture_2023}, and epidemiology and healthcare ~\cite{quilodran-casas_digital_2022, moztarzadeh_metaverse_2023}. At the moment, there is no single authority or agreement on the term's definition, nor any standardized method of implementation. The concept is continuously evolving, even if slowly ~\cite{fuller_digital_2020}, with new research and applications. Minerva et al. ~\cite{minerva_dt_2020} define a digital twin as a ``comprehensive software representation of an individual [physical object]'' or a set of such models that include all the ``properties, conditions, and behavior(s)'' of the physical object through data and modeling, all with the goal of tracking the physical object's life cycle. ~\cite{noauthor_digital_2019} offers a similar definition: the digital twin is a digital replica of a physical entity that utilizes sensor data to combine simulation and analytics, providing insights into both present and future operational states of the physical entity. The digital twin can be used alongside similar twins in an ensemble or used with analytical tools to optimize or diagnose performance under real-world conditions.
+
+Within the scope of this paper, we define the digital twin as a system comprising the digital system and the physical twin or system. The digital twin is a complete virtual description of a physical system that attempts to ``mirror'' a physical system in its present or future state. The digital twin will integrate data from the real world as it becomes available. The physical twin describes the system as it exists in the real world, and it is what the digital twin is attempting to mirror. The system operates in a feedback loop, where insights from the real world are parsed through the digital twin and extracted, then applied back to the physical twin. As the digital twin is a model of the physical twin, we can explore models to represent the physical twin beyond tangible or visual representations, and into mathematical representations such as machine learning models.
+  </p>
+
+  <h1>State of Machine Learning and Artificial Intelligence</h1>
+  <p>
+    Artificial intelligence (AI) has emerged as a transformative force in various domains, offering powerful techniques for data analysis, extracting patterns, and approximating complex, high-dimensional functions. We will focus on a subset of AI, machine learning, and we further broadly categorize the evolution of machine learning into two interconnected branches: classical algorithms and neural networks. We use ``deep learning'' and ``neural networks'' interchangeably. To fully establish the landscape in which digital twins are being developed and how machine learning is closely related to their development, it is also essential to understand how the two branches interact and describe the common and emergent methods currently employed.
+  </p>
+  <h2>Machine Learning</h2>
+  <p>
+    Classical machine learning algorithms, with roots in statistical modeling and pattern recognition, witnessed significant advancements throughout the latter half of the 20th century. While techniques like linear regression and Naive Bayes can be traced back to the 19th century, this marked the period during which algorithms like logistic regression and early clustering methods emerged as powerful tools for data analysis across various fields. The continued development of support vector machines (SVMs) in the 1990s and the popularization of decision trees marked notable milestones, providing robust methods for classification and prediction tasks. The rise of big data and the demand for more sophisticated models handling complex relationships ultimately shifted the focus towards neural networks, but classic algorithms are still dominant in applications where interpretability and computational efficiency are paramount. They remain relevant and widely used, with innovative algorithms being proposed within the last decade.
+
+There are a few key advantages to classic machine learning algorithms:
+\begin{itemize}
+    \item The primary benefit is in interpretability, though there are exceptions. Explicit relationships are usually assumed between variables, which makes it easier to understand how input features influence the output. Additionally, there are clear decision boundaries; for example, trees and SVMs create visually interpretable decision boundaries in the feature space. You can trace how the algorithm divides data points into classes based on specific feature values.
+    \item They often require fewer data points than deep learning methods to be effective and their performance on limited data is still comparable to neural networks.
+    \item They require significantly less computational power to train and make inferences.
+\end{itemize}
+Subfields of machine learning, such as neural networks or deep learning, have recently enjoyed explosive popularity. However, the value of applying machine learning algorithms should still not be overlooked, and neural networks should not be treated as a panacea.
+  </p>
+
+  <h2>Neural Networks</h2>
+  <p>
+    Neural networks were also introduced in the mid-1900s alongside the concept of artificial intelligence, though interest oscillated during the first few decades of research; the field frequently faced stagnation in the form of “AI winters,” periods of reduced interest and funding in AI, due to overoptimism and disappointing results ~\cite{noauthor_w_2005}. Some of these issues can be attributed to one massive bottleneck in implementation feasibility: computational power. Still, the initial architecture and concepts for many popular models used today began appearing in the 1980s and 1990s, including convolutional neural networks (CNNs) and recurrent neural networks (RNNs). Around the 2000s, research into using graphics processing units (GPUs) for deep learning took off and reignited interest ~\cite{noauthor_not_2016}, and we have since enjoyed countless breakthroughs in the last 15 years, from ImageNet to transformers. The development of neural networks will continue to heavily depend on hardware capabilities.
+
+Traditional machine learning techniques, though powerful, may be limiting in some scenarios. They often could require knowledge of the function we are approximating beforehand, need more feature engineering, and can only represent certain types of functions. The key reason for using neural networks is that they can handle big data while approximating complex high-dimensional relationships and capturing important correlations. When trained correctly, they fit better to complex data and tasks in spaces that may not be linearly separable. There is also no need to identify and understand the most important feature ahead of time.
+
+Neural networks also face some important drawbacks, in contrast to classic machine learning algorithms:
+\begin{itemize}
+    \item One of the primary problems neural networks face is a lack of interpretability. Not only are the parameters rarely physically interpretable, but beyond the architecture and certain decisions made before running the model, we cannot be entirely certain as to how the neural network makes its decisions and returns an output. This is why the neural network is often called a ``black box.'' 
+    \item Computational cost grows significantly, especially as the network gets deeper. This also depends on the data you are training and making inferences on. Training itself can also take weeks to complete.
+    \item A neural network's extrapolation capacity is limited. If the model is not trained for a specific scenario, the model generally cannot make predictions about said scenario.
+    \item The vanishing and exploding gradient problems: in the former, the activation function's gradients get progressively smaller through backpropagation, leading to weight updates becoming infinitesimal, if they happen at all. The latter is when updates to the model weights become excessively large due to accumulating large gradients in backpropagation. In both cases, model training is hindered somehow, e.g. prolonged, stopped altogether, or no longer learns from the training set.
+\end{itemize}
+  </p>
+
+
 </body>
 </html>
