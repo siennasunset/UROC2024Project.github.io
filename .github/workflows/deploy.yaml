@@ -37,6 +37,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: dist.tar.gz
+          path: ./dist.tar.gz
 
   # Deploy to GitHub Pages
   deploy:
