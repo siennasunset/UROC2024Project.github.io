@@ -1,5 +1,6 @@
 ---
 title: Stephanie's ESFSim Research Project
+toc: True
 ---
 
 # Placeholder
